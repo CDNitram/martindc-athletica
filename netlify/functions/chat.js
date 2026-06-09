@@ -23,7 +23,7 @@ exports.handler = async function (event) {
   try {
     const body = JSON.parse(event.body);
     if (body.max_tokens > 1500) body.max_tokens = 1500;
-    body.model = 'claude-sonnet-4-20250514';
+    body.model = 'claude-sonnet-4-5';
 
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
