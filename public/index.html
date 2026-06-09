@@ -1,0 +1,2296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Martin Córdoba — For Athletica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #ffffff;
+    --off-black: #f7f7f5;
+    --surface: #f2f2ef;
+    --surface2: #e8e8e4;
+    --border: rgba(0,0,0,0.09);
+    --border-strong: rgba(0,0,0,0.18);
+    --white: #111111;
+    --white-muted: rgba(17,17,17,0.58);
+    --white-dim: rgba(17,17,17,0.38);
+    --accent: #1a1aff;
+    --accent-dim: rgba(26,26,255,0.07);
+    --accent-mid: rgba(26,26,255,0.28);
+    --red: #ff3c3c;
+    --nav-h: 64px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: var(--nav-h);
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    z-index: 100;
+  }
+
+  .nav-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 1.25rem;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    text-transform: uppercase;
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    text-decoration: none;
+    padding: 0.4rem 0.75rem;
+    border-radius: 4px;
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); background: var(--accent-dim); }
+
+
+  .nav-dropdown { position: relative; }
+  .nav-dropdown-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    background: none;
+    border: none;
+    padding: 0.4rem 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-dropdown-btn:hover, .nav-dropdown-btn.active { color: var(--accent); background: var(--accent-dim); }
+  .nav-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    padding-top: 8px;
+    z-index: 200;
+  }
+  .nav-dropdown-menu.open { display: block; }
+  .nav-dropdown-menu-inner {
+    background: rgba(255,255,255,0.99);
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 6px;
+    min-width: 160px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    overflow: hidden;
+  }
+  .nav-dropdown-menu a {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(17,17,17,0.7);
+    text-decoration: none;
+    padding: 0.65rem 1rem;
+    transition: background 0.15s, color 0.15s;
+  }
+  .nav-dropdown-menu a:hover { background: var(--accent-dim); color: var(--accent); }
+
+  .cv-block { padding: 2rem; }
+  .cv-section-head {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .cv-body { font-size: 0.88rem; color: var(--white-muted); line-height: 1.7; }
+  .cv-two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .cv-skill-row { font-size: 0.85rem; color: var(--white-muted); margin-bottom: 0.4rem; line-height: 1.5; }
+  .cv-skill-label { font-weight: 600; color: var(--white); margin-right: 0.4rem; }
+  .cv-job-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.6rem; gap: 1rem; }
+  .cv-role { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.03em; color: var(--white); }
+  .cv-org { font-size: 0.82rem; color: var(--white-dim); margin-top: 0.1rem; }
+  .cv-date { font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--accent); white-space: nowrap; }
+  .cv-list { list-style: none; padding: 0 2rem 0; display: flex; flex-direction: column; gap: 0.35rem; }
+  .cv-list li { font-size: 0.85rem; color: var(--white-muted); padding-left: 1rem; position: relative; line-height: 1.55; }
+  .cv-list li::before { content: "—"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+  @media (max-width: 768px) { .cv-two-col { grid-template-columns: 1fr; } .cv-job-header { flex-direction: column; } }
+
+  /* ── SECTIONS ── */
+  section {
+    min-height: 100vh;
+    padding: calc(var(--nav-h) + 5rem) 2.5rem 5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  section.full-bleed {
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: var(--nav-h);
+    position: relative;
+    max-width: 100%;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    overflow: hidden;
+  }
+
+  .hero-bg-number {
+    position: absolute;
+    right: -0.05em;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(14rem, 28vw, 26rem);
+    color: rgba(0,0,0,0.04);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: -0.05em;
+  }
+
+  .hero-inner { max-width: 1100px; margin: 0 auto; width: 100%; }
+
+  .hero-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 2rem;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 0.2em;
+  }
+  h1 .accent { color: var(--accent); }
+  h1 .outline {
+    -webkit-text-stroke: 2px rgba(0,0,0,0.15);
+    color: transparent;
+  }
+
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--white-muted);
+    max-width: 540px;
+    margin: 1.5rem 0 2.5rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+  }
+  .stat-block { }
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 2.5rem;
+    line-height: 1;
+    color: var(--white);
+    letter-spacing: -0.02em;
+  }
+  .stat-num span { color: var(--accent); }
+  .stat-sublabel {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-top: 0.15rem;
+    font-weight: 600;
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--white-dim);
+    margin-top: 0.2rem;
+    font-weight: 500;
+  }
+
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: #ffffff;
+    border: none;
+    padding: 0.85rem 2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s, transform 0.1s;
+    display: inline-block;
+  }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  .btn-ghost {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--white);
+    border: 1px solid var(--border-strong);
+    padding: 0.85rem 2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, transform 0.1s;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+  /* ── SECTION HEADERS ── */
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 1.5rem;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  h2 .dim { color: var(--white-dim); }
+
+  .section-intro {
+    font-size: 1rem;
+    color: var(--white-muted);
+    max-width: 600px;
+    margin-bottom: 3rem;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* ── WHY ATHLETICA ── */
+  .match-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 3rem;
+  }
+  .match-card {
+    background: var(--surface);
+    padding: 2rem;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .match-card:hover { background: var(--surface2); }
+  .match-card-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    line-height: 1;
+  }
+  .match-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .match-card p {
+    font-size: 0.9rem;
+    color: var(--white-muted);
+    line-height: 1.65;
+  }
+  .match-card .their-words {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--accent-dim);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 4px 4px 0;
+    font-size: 0.8rem;
+    color: var(--accent);
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  /* ── PADELEYE SHOWCASE ── */
+  .padeleye-hero {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  .padeleye-header {
+    padding: 2.5rem;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: start;
+  }
+  .padeleye-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 2.8rem;
+    line-height: 1;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+  }
+  .padeleye-title span { color: var(--accent); }
+  .padeleye-desc {
+    font-size: 0.95rem;
+    color: var(--white-muted);
+    max-width: 480px;
+    margin-top: 0.75rem;
+    line-height: 1.65;
+  }
+  .live-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(0,160,60,0.07);
+    border: 1px solid rgba(0,160,60,0.35);
+    color: #008a38;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.9rem;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #008a38;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .padeleye-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+  }
+  .pe-stat {
+    padding: 1.5rem 2rem;
+    border-right: 1px solid var(--border);
+  }
+  .pe-stat:last-child { border-right: none; }
+  .pe-stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--accent);
+  }
+  .pe-stat-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--white-dim);
+    margin-top: 0.25rem;
+  }
+
+  .padeleye-modules {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+  }
+  .module-card {
+    background: var(--surface);
+    padding: 1.75rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .module-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--white-dim);
+  }
+  .module-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--white);
+  }
+  .module-desc {
+    font-size: 0.85rem;
+    color: var(--white-muted);
+    line-height: 1.5;
+  }
+  .module-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    margin-top: 0.5rem;
+    transition: gap 0.2s;
+  }
+  .module-link:hover { gap: 0.7rem; }
+  .module-link::after { content: '→'; }
+
+  /* ── STACK SECTION ── */
+  .stack-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .stack-cat {
+    background: var(--surface);
+    padding: 1.75rem;
+  }
+  .stack-cat-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+  .stack-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    color: var(--white-muted);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .tag.highlight {
+    background: var(--accent-dim);
+    border-color: var(--accent-mid);
+    color: var(--accent);
+  }
+
+  /* ── CAO CARIOCA ── */
+  .cc-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  .cc-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2rem;
+  }
+  .metric-row {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .big-metric { }
+  .big-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 3rem;
+    line-height: 1;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+  }
+  .big-label {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--white-dim);
+    margin-top: 0.2rem;
+  }
+  .proof-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .proof-list li {
+    font-size: 0.9rem;
+    color: var(--white-muted);
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.5;
+  }
+  .proof-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ── BACKGROUND ── */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    bottom: 0;
+    width: 1px;
+    background: var(--border-strong);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 0.5rem;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    transform: translateX(-3px);
+  }
+  .tl-date {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.25rem;
+  }
+  .tl-role {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--white);
+    margin-bottom: 0.2rem;
+  }
+  .tl-org {
+    font-size: 0.85rem;
+    color: var(--white-dim);
+    margin-bottom: 0.5rem;
+  }
+  .tl-desc {
+    font-size: 0.88rem;
+    color: var(--white-muted);
+    line-height: 1.6;
+  }
+
+  /* ── AI WORKFLOW ── */
+  .ai-highlight {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .ai-highlight::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent);
+  }
+  .ai-quote {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.4rem, 3vw, 2.2rem);
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+  .ai-quote .accent { color: var(--accent); }
+  .ai-tools {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+  .ai-tool {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--accent-mid);
+    border-radius: 4px;
+    color: var(--accent);
+    background: var(--accent-dim);
+  }
+
+  /* ── EDUCATION ── */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .edu-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.75rem;
+  }
+  .edu-degree {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    margin-bottom: 0.25rem;
+  }
+  .edu-school {
+    font-size: 0.85rem;
+    color: var(--white-dim);
+    margin-bottom: 0.75rem;
+  }
+  .edu-grade {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-dim);
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+  }
+
+  .cert-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .cert-tag {
+    font-size: 0.8rem;
+    color: var(--white-muted);
+    border: 1px solid var(--border);
+    padding: 0.35rem 0.8rem;
+    border-radius: 4px;
+    background: var(--surface);
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    border-top: 1px solid var(--border);
+    text-align: center;
+    min-height: auto;
+    padding: 5rem 2.5rem;
+  }
+  .contact-heading {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .contact-heading .outline {
+    -webkit-text-stroke: 2px rgba(0,0,0,0.12);
+    color: transparent;
+  }
+  .contact-sub {
+    font-size: 1rem;
+    color: var(--white-muted);
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+  }
+  .contact-link {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .contact-link:hover { color: var(--accent); }
+
+  /* ── DIVIDERS ── */
+  .ruled {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2rem 0;
+  }
+
+
+
+  /* ── AI LAB ── */
+  .ailab-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  .ailab-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .ailab-card-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--off-black);
+  }
+  .ailab-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-mid);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .ailab-card-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--white);
+  }
+  .ailab-card-desc {
+    font-size: 0.78rem;
+    color: var(--white-dim);
+    margin-top: 0.15rem;
+  }
+  .ailab-body { padding: 1.25rem 1.5rem; }
+  .ailab-textarea {
+    width: 100%;
+    min-height: 90px;
+    background: var(--black);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.75rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.85rem;
+    color: var(--white);
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+  }
+  .ailab-textarea:focus { border-color: var(--accent); }
+  .ailab-textarea::placeholder { color: var(--white-dim); }
+  .ailab-run {
+    margin-top: 0.75rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .ailab-run:hover { opacity: 0.85; }
+  .ailab-run:disabled { opacity: 0.4; cursor: not-allowed; }
+  .ailab-output {
+    margin-top: 1rem;
+    background: var(--black);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1rem;
+    font-size: 0.85rem;
+    color: var(--white-muted);
+    line-height: 1.7;
+    min-height: 60px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    display: none;
+  }
+  .ailab-output.visible { display: block; }
+  .ailab-output.loading {
+    display: block;
+    font-style: italic;
+    color: var(--white-dim);
+  }
+  .ailab-output .out-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+  .ailab-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+  }
+  .ailab-chip {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    background: var(--surface);
+    color: var(--white-muted);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    font-family: 'Barlow', sans-serif;
+  }
+  .ailab-chip:hover { border-color: var(--accent); color: var(--accent); }
+
+  @media (max-width: 768px) {
+    .ailab-body { padding: 1rem; }
+    .ailab-card-header { padding: 1rem; gap: 0.75rem; }
+    .ailab-textarea { min-height: 80px; font-size: 0.9rem; }
+    .ailab-run { width: 100%; text-align: center; padding: 0.75rem 1rem; font-size: 0.85rem; }
+    .ailab-chips { gap: 0.35rem; }
+    .ailab-chip { font-size: 0.72rem; padding: 0.28rem 0.6rem; }
+    .ailab-output { font-size: 0.82rem; padding: 0.85rem; }
+    .ailab-card-title { font-size: 0.92rem; }
+    .ailab-icon { width: 30px; height: 30px; font-size: 0.95rem; }
+  }
+
+  @media (max-width: 480px) {
+    .ailab-body { padding: 0.85rem; }
+    .ailab-card-header { padding: 0.85rem; }
+    .ailab-chips { gap: 0.3rem; }
+    .ailab-chip { font-size: 0.68rem; padding: 0.25rem 0.55rem; }
+    .ailab-textarea { min-height: 70px; font-size: 0.85rem; }
+  }
+
+  /* ── CHAT WIDGET ── */
+  #chat-bubble {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 500;
+  }
+  #chat-toggle {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(26,26,255,0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-size: 1.4rem;
+  }
+  #chat-toggle:hover { transform: scale(1.08); box-shadow: 0 6px 28px rgba(26,26,255,0.45); }
+
+  #chat-window {
+    position: fixed;
+    bottom: 5rem;
+    right: 1.5rem;
+    width: 380px;
+    max-width: calc(100vw - 2rem);
+    max-height: 520px;
+    background: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.15);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 500;
+  }
+  #chat-window.open { display: flex; }
+
+  #chat-header {
+    padding: 1rem 1.25rem;
+    background: var(--off-black);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .chat-header-info { display: flex; align-items: center; gap: 0.75rem; }
+  .chat-avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900; font-size: 0.85rem;
+    color: #fff;
+  }
+  .chat-header-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 0.9rem;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--white);
+  }
+  .chat-header-sub { font-size: 0.72rem; color: var(--white-dim); margin-top: 0.1rem; }
+  #chat-close {
+    background: none; border: none; color: var(--white-dim);
+    cursor: pointer; font-size: 1.1rem; padding: 0.2rem;
+    transition: color 0.2s;
+  }
+  #chat-close:hover { color: var(--white); }
+
+  #chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    scroll-behavior: smooth;
+  }
+  .msg {
+    max-width: 85%;
+    padding: 0.65rem 0.9rem;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    word-break: break-word;
+  }
+  .msg.assistant {
+    background: var(--surface);
+    color: var(--white);
+    border-bottom-left-radius: 3px;
+    align-self: flex-start;
+  }
+  .msg.user {
+    background: var(--accent);
+    color: #fff;
+    border-bottom-right-radius: 3px;
+    align-self: flex-end;
+  }
+  .msg.typing { opacity: 0.6; font-style: italic; }
+
+  .chat-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0 1rem 0.75rem;
+  }
+  .chat-suggestion {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    background: var(--surface);
+    color: var(--white-muted);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s;
+    font-family: 'Barlow', sans-serif;
+  }
+  .chat-suggestion:hover { border-color: var(--accent); color: var(--accent); }
+
+  #chat-input-row {
+    padding: 0.75rem 1rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  #chat-input {
+    flex: 1;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.55rem 0.85rem;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.875rem;
+    color: var(--white);
+    background: var(--surface);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  #chat-input:focus { border-color: var(--accent); }
+  #chat-input::placeholder { color: var(--white-dim); }
+  #chat-send {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: var(--accent);
+    border: none;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    transition: opacity 0.2s;
+    flex-shrink: 0;
+  }
+  #chat-send:hover { opacity: 0.85; }
+  #chat-send:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  @media (max-width: 480px) {
+    #chat-window { right: 0.75rem; left: 0.75rem; width: auto; bottom: 4.5rem; }
+    #chat-bubble { bottom: 1rem; right: 1rem; }
+  }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-up.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── RESPONSIVE ── */
+
+  /* ── HAMBURGER BUTTON ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    z-index: 110;
+  }
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--white);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── MOBILE DRAWER ── */
+  .mobile-drawer {
+    display: none;
+    position: fixed;
+    top: var(--nav-h);
+    left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(12px);
+    z-index: 99;
+    padding: 2rem 1.5rem;
+    flex-direction: column;
+    gap: 0.25rem;
+    overflow-y: auto;
+  }
+  .mobile-drawer.open { display: flex; }
+  .mobile-drawer a, .mobile-drawer button {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--border);
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    transition: color 0.2s;
+  }
+  .mobile-drawer a:hover, .mobile-drawer button:hover { color: var(--accent); }
+  .mobile-drawer .drawer-sub {
+    padding-left: 1.25rem;
+    font-size: 1rem;
+  }
+  .mobile-drawer .drawer-sub a {
+    font-size: 1rem;
+    padding: 0.6rem 0;
+    color: var(--white-muted);
+    border-bottom: none;
+  }
+
+  /* ── TABLET 1024px ── */
+  @media (max-width: 1024px) {
+    h1 { font-size: clamp(2.8rem, 7vw, 5rem); }
+    h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
+    .hero-stats { gap: 1.75rem; }
+    .match-grid { grid-template-columns: repeat(2, 1fr); }
+    .padeleye-stats { grid-template-columns: repeat(2, 1fr); }
+    .stack-grid { grid-template-columns: repeat(2, 1fr); }
+    .edu-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ── MOBILE 768px ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+
+    section {
+      padding: calc(var(--nav-h) + 2.5rem) 1.25rem 3rem;
+      min-height: auto;
+    }
+    #hero {
+      padding: calc(var(--nav-h) + 2rem) 1.25rem 3rem;
+      min-height: 100svh;
+    }
+
+    h1 { font-size: clamp(2.4rem, 10vw, 4rem); }
+    h2 { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+
+    .hero-tag { font-size: 0.65rem; }
+    .hero-sub { font-size: 0.95rem; }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .stat-num { font-size: 1.8rem; }
+    .hero-actions { flex-direction: column; }
+    .hero-actions a { text-align: center; }
+    .hero-bg-number { font-size: 10rem; opacity: 0.5; }
+
+    .match-grid { grid-template-columns: 1fr; }
+
+    .padeleye-header { grid-template-columns: 1fr; gap: 1rem; }
+    .padeleye-stats { grid-template-columns: repeat(2, 1fr); }
+    .padeleye-modules { grid-template-columns: 1fr; }
+    .pe-stat { padding: 1rem 1.25rem; }
+
+    .stack-grid { grid-template-columns: 1fr; }
+    .ai-highlight { padding: 1.75rem; }
+    .ai-tools { gap: 0.5rem; }
+
+    .cc-layout { grid-template-columns: 1fr; }
+    .metric-row { gap: 1rem; }
+    .big-num { font-size: 2.2rem; }
+
+    .timeline { padding-left: 1.5rem; }
+
+    .edu-grid { grid-template-columns: 1fr; }
+
+    .cv-block { padding: 1.25rem; }
+    .cv-two-col { grid-template-columns: 1fr; }
+    .cv-job-header { flex-direction: column; gap: 0.25rem; }
+    .cv-list { padding: 0 0 0 0.5rem; }
+
+    .contact-heading { font-size: clamp(2rem, 10vw, 3.5rem); }
+    .contact-links { gap: 0.75rem; }
+
+    /* Cover letter */
+    .cover-footer { flex-direction: column; gap: 0.75rem; }
+  }
+
+  /* ── SMALL MOBILE 480px ── */
+  @media (max-width: 480px) {
+    h1 { font-size: clamp(2rem, 11vw, 3rem); }
+    .hero-stats { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .stat-num { font-size: 1.5rem; }
+    .padeleye-stats { grid-template-columns: repeat(2, 1fr); }
+    .pe-stat-num { font-size: 1.5rem; }
+    section { padding: calc(var(--nav-h) + 2rem) 1rem 2.5rem; }
+    .match-card { padding: 1.5rem; }
+    .cv-block { padding: 1rem; }
+    .ai-highlight { padding: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Martin <span>DC</span></div>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="javascript:void(0)" onclick="martinScroll('coverletter')">Cover Letter</a></li>
+    <li><a href="javascript:void(0)" onclick="martinScroll('why')">Why Martin is a good fit for Athletica</a></li>
+    <li><a href="javascript:void(0)" onclick="martinScroll('background')">Background</a></li>
+    <li><a href="javascript:void(0)" onclick="martinScroll('education')">Education</a></li>
+    <li><a href="javascript:void(0)" onclick="martinScroll('stack')">Martin's Stack</a></li>
+    <li class="nav-dropdown">
+      <button class="nav-dropdown-btn" id="casesBtn" onclick="toggleDropdown(event)">Martin's Cases ▾</button>
+      <div class="nav-dropdown-menu" id="casesMenu">
+        <div class="nav-dropdown-menu-inner">
+          <a href="javascript:void(0)" onclick="closeDropdown();martinScroll('padeleye')">PadelEye</a>
+          <a href="javascript:void(0)" onclick="closeDropdown();martinScroll('caocarioca')">Cão Carioca</a>
+        </div>
+      </div>
+    </li>
+    <li><a href="javascript:void(0)" onclick="martinScroll('ailab')">AI Lab</a></li>
+    <li><a href="javascript:void(0)" onclick="martinScroll('cv')">Martin's CV</a></li>
+  </ul>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <a href="javascript:void(0)" onclick="drawerGo('coverletter')">Cover Letter</a>
+  <a href="javascript:void(0)" onclick="drawerGo('why')">Why Martin is a good fit</a>
+  <a href="javascript:void(0)" onclick="drawerGo('background')">Background</a>
+  <a href="javascript:void(0)" onclick="drawerGo('education')">Education</a>
+  <a href="javascript:void(0)" onclick="drawerGo('stack')">Martin's Stack</a>
+  <button onclick="toggleDrawerCases()">Martin's Cases ▾</button>
+  <div class="drawer-sub" id="drawerCases" style="display:none;">
+    <a href="javascript:void(0)" onclick="drawerGo('padeleye')">PadelEye</a>
+    <a href="javascript:void(0)" onclick="drawerGo('caocarioca')">Cão Carioca</a>
+  </div>
+  <a href="javascript:void(0)" onclick="drawerGo('ailab')">AI Lab</a>
+  <a href="javascript:void(0)" onclick="drawerGo('cv')">Martin's CV</a>
+</div>
+
+<!-- HERO -->
+<section id="hero" class="full-bleed">
+  <div class="hero-bg-number">20+</div>
+  <div class="hero-inner">
+    <div class="hero-tag">Full-Stack Developer Application · Athletica 2026</div>
+    <h1>
+      A new generation<br>
+      <span class="accent">of AI Developers.</span><br>
+      <span class="outline">Martin is one.</span>
+    </h1>
+    <p class="hero-sub">
+      I'm not just a system developer. I'm an athlete and sports passionate who builds AI products.
+    </p>
+    <div class="hero-stats">
+      <div class="stat-block">
+        <div class="stat-num">20<span>+</span></div>
+        <div class="stat-label">Years in business</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-num" style="font-size:1.5rem; line-height:1.2;">10y Corporate<br>+ 10y Startup</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-num" style="font-size:1.6rem; line-height:1.1;">Full Stack<br>AI Developer</div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-num" style="font-size:1.4rem; line-height:1.1;">Creator of<br>TechNigma AI Lab</div>
+      </div>
+    </div>
+    <div class="hero-actions">
+      <a href="javascript:void(0)" class="btn-primary" onclick="martinScroll('padeleye')">See the Live Product</a>
+      <a href="javascript:void(0)" class="btn-ghost" onclick="martinScroll('why')">Why This Fits</a>
+    </div>
+  </div>
+</section>
+
+<!-- COVER LETTER -->
+<section id="coverletter">
+  <div class="section-label">Cover Letter</div>
+  <h2>Dear <span class="dim">Athletica.</span></h2>
+
+  <div style="max-width: 720px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden;">
+    <div style="padding: 0.75rem 2rem; background: var(--off-black); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+      <div style="font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white-dim);">TechNigma AI Lab: <a href="https://br.linkedin.com/company/technigma" target="_blank" style="color:var(--accent);text-decoration:none;">linkedin.com/company/technigma</a></div>
+      <div style="font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 0.72rem; letter-spacing: 0.08em; color: var(--white-dim);">June 2026</div>
+    </div>
+    <div style="padding: 2.5rem; display: flex; flex-direction: column; gap: 1.25rem;">
+
+      <p style="font-size: 0.95rem; color: var(--white-muted); line-height: 1.75;">
+        I'm applying for the AI Full-Stack Developer role. I'll keep this short — because the work speaks louder.
+      </p>
+
+      <p style="font-size: 0.95rem; color: var(--white-muted); line-height: 1.75;">
+        I've spent the last two years building <strong style="color:var(--white);">PadelEye</strong> — an AI-native platform that manages tournaments, tracks player progression, and delivers performance analytics for padel. It's live, it's been used in 6 real tournaments and 22+ individual sessions, and it's currently mid-migration from a GAS backend to a proper SQL + API stack.
+      </p>
+
+      <p style="font-size: 0.95rem; color: var(--white-muted); line-height: 1.75;">
+        Before PadelEye, I spent 6+ years as Product Owner of <strong style="color:var(--white);">Cão Carioca</strong> — a PHP SaaS with 50+ controllers, PIX and Asaas payment integrations, and thousands of live records hosted on Vultr. The new ERP version is being rebuilt in Laravel, which is where most of my current PHP focus sits.
+      </p>
+
+      <p style="font-size: 0.95rem; color: var(--white-muted); line-height: 1.75;">
+        My background isn't a traditional dev path. I came from 20 years in business — 10 in corporate supply chain at Seadrill, then a decade building products at TechNigma AI Lab — and crossed into hands-on development through necessity and passion. <strong style="color:var(--white);">Sports have been constant throughout</strong>: soccer, padel, and now building tools for the world I grew up competing in.
+      </p>
+
+      <p style="font-size: 0.95rem; color: var(--white-muted); line-height: 1.75;">
+        On AI workflow: <strong style="color:var(--white);">Claude Code, Cursor, Copilot, and Gemini are daily tools — not experiments.</strong> As a matter of fact, this presentation was built using Claude, MS Copilot, GitHub, Vercel, and HTML — tools that can only be put together at this pace if you have deep understanding of how AI works. I did revise it all with my human eyes, each step of the way. I like to get the best out of each resource, either the human or the computer. <strong style="color:var(--white);">This is me.</strong>
+      </p>
+
+      <p style="font-size: 0.95rem; color: var(--white-muted); line-height: 1.75;">
+        Every module in PadelEye was built AI-native from day one. That's the only way I work, and it's the reason I can ship faster, iterate tighter, and maintain higher quality than a traditional full stack dev. And if we do this as a team, then we can go as far as we can imagine, <strong style="color:var(--white);">at the speed of quant.</strong>
+      </p>
+
+      <p style="font-size: 0.95rem; color: var(--white-muted); line-height: 1.75;">
+        Athletica's mission — adaptable coaching for real athletes — is exactly the product space I'm already in. I'd love to bring that energy to your team.
+      </p>
+
+      <p style="font-size: 0.95rem; color: var(--white-muted); line-height: 1.75;">
+        At this point in my career path, <strong style="color:var(--white);">networking with the USA and Europe, and hands-on experience in AI development counts more to me than a big paycheck.</strong> I understand the capital constraints a startup undergoes at each stage of growth, and I'm willing to fit into the available budget.
+      </p>
+
+      <div class="cover-footer" style="border-top: 1px solid var(--border); padding-top: 1.25rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <div style="font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--white);">Martin DC</div>
+          <div style="font-size: 0.8rem; color: var(--white-dim); margin-top: 0.1rem;">Rio de Janeiro · martin.cordoba@yahoo.com</div>
+        </div>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a href="https://github.com/CDNitram/PadelEye-V1" target="_blank" style="font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); text-decoration:none;">GitHub →</a>
+          <a href="https://www.linkedin.com/in/martin-cordoba-a36a841b" target="_blank" style="font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); text-decoration:none;">LinkedIn →</a>
+          <a href="javascript:void(0)" onclick="martinScroll('cv')" style="font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); text-decoration:none;">Full CV →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY ATHLETICA -->
+<section id="why">
+  <div class="section-label">The Match</div>
+  <h2>Why Athletica. <span class="dim">Why Now.</span></h2>
+  <p class="section-intro">Every item on Athletica's job description maps to something I've already shipped. Here's the honest breakdown.</p>
+
+  <div class="match-grid fade-up">
+    <div class="match-card">
+      <div class="match-card-icon">⚡</div>
+      <h3>AI-Native Workflow</h3>
+      <p>Since 2024, Claude Code, Cursor, Copilot, and Gemini are not tools I experiment with — they're how every line of PadelEye was written. No learning curve. No resistance.</p>
+      <div class="their-words">"Non-negotiable. We don't care which tools — we expect fluency." — Athletica JD</div>
+    </div>
+    <div class="match-card">
+      <div class="match-card-icon">🏃</div>
+      <h3>Sports Domain Depth</h3>
+      <p>I've played soccer and padel since childhood. PadelEye wasn't built by someone who researched the sport — it was built by someone who plays it every week and understands what athletes and coaches actually need.</p>
+      <div class="their-words">"Interest in sports science, physiology, or performance data" — Athletica JD</div>
+    </div>
+    <div class="match-card">
+      <div class="match-card-icon">🐘</div>
+      <h3>PHP + Laravel in Production</h3>
+      <p>Six-plus years as Product Owner of Cão Carioca — a 50+ controller PHP SaaS live since 2019. The new ERP version is being rebuilt in Laravel. I work directly with PHP developers at the architecture level, not just as a PM.</p>
+      <div class="their-words">"PHP 8+ and Laravel — core requirement" — Athletica JD</div>
+    </div>
+    <div class="match-card">
+      <div class="match-card-icon">📡</div>
+      <h3>Wearable API Readiness</h3>
+      <p>PadelEye's roadmap includes Garmin, Strava, Oura, and Zepp integrations. I've been designing around these APIs for over a year. Athletica's Garmin/Strava/Wahoo/Coros work is the exact next step I'm already planning.</p>
+      <div class="their-words">"Hardening fitness device integrations (Garmin, Strava, Wahoo, Coros)" — Athletica JD</div>
+    </div>
+    <div class="match-card">
+      <div class="match-card-icon">🌐</div>
+      <h3>React + Migration Experience</h3>
+      <p>React is in production at Cão Carioca. PadelEye's frontend is being rebuilt in React. I've led a Vue-to-React equivalent migration — the Cão Carioca ERP v2 replatform — and I understand exactly what Athletica's Vue 2 → React 19 migration entails.</p>
+      <div class="their-words">"Migrating a legacy Vue 2 frontend to React 19" — Athletica JD</div>
+    </div>
+    <div class="match-card">
+      <div class="match-card-icon">🚀</div>
+      <h3>Startup DNA</h3>
+      <p>Ten years at TechNigma AI Lab building from scratch. No ticket-grinding. Full ownership from concept to live ops. I've been the person who ships, documents, maintains, and iterates — alone or with a small team.</p>
+      <div class="their-words">"No ticket-grinding. You'll own tasks end-to-end." — Athletica JD</div>
+    </div>
+  </div>
+</section>
+
+<!-- PADELEYE -->
+<section id="padeleye">
+  <div class="section-label">Flagship Project</div>
+  <h2>Padel<span class="dim">Eye.</span></h2>
+  <p class="section-intro">An AI-native platform covering the full lifecycle of a padel player — from amateur club sessions to competitive tournaments. Live in production since 2024.</p>
+
+  <div class="padeleye-hero fade-up">
+    <div class="padeleye-header">
+      <div>
+        <div class="padeleye-title">Padel<span>Eye</span> V1</div>
+        <p class="padeleye-desc">Tournament management, session analytics, player progression tracking, and AI-driven match insights. Built solo, AI-native from commit one, currently migrating from GAS backend to SQL + REST API stack.</p>
+      </div>
+      <div class="live-badge">
+        <div class="live-dot"></div>
+        In Production
+      </div>
+    </div>
+
+    <div class="padeleye-stats">
+      <div class="pe-stat">
+        <div class="pe-stat-num">6</div>
+        <div class="pe-stat-label">Live Tournaments</div>
+      </div>
+      <div class="pe-stat">
+        <div class="pe-stat-num">22+</div>
+        <div class="pe-stat-label">Sessions Recorded</div>
+      </div>
+      <div class="pe-stat">
+        <div class="pe-stat-num">306+</div>
+        <div class="pe-stat-label">Matches in DB</div>
+      </div>
+      <div class="pe-stat">
+        <div class="pe-stat-num">30+</div>
+        <div class="pe-stat-label">Active Players</div>
+      </div>
+    </div>
+
+    <div class="padeleye-modules">
+      <div class="module-card">
+        <div class="module-tag">Module 01</div>
+        <div class="module-name">Tournament Manager V39</div>
+        <p class="module-desc">Full Americano tournament lifecycle: bracket generation, live scoring, automatic ranking updates, and result export.</p>
+        <a class="module-link" href="https://cdnitram.github.io/PadelEye-V1/PadelEye_Americano_V39_Prod.html" target="_blank">Open live app</a>
+      </div>
+      <div class="module-card">
+        <div class="module-tag">Module 02</div>
+        <div class="module-name">Session Manager V10</div>
+        <p class="module-desc">Manage individual padel sessions: player registration, court assignment, match scheduling, and real-time score entry.</p>
+        <a class="module-link" href="https://cdnitram.github.io/PadelEye-V1/PadelEye_Session_Manager_V10.html" target="_blank">Open live app</a>
+      </div>
+      <div class="module-card">
+        <div class="module-tag">Module 03</div>
+        <div class="module-name">AI Import Terminal V1.4</div>
+        <p class="module-desc">LLM-powered data ingestion layer: parse and import match data via natural language, AI agents handling schema mapping and validation.</p>
+        <a class="module-link" href="https://cdnitram.github.io/PadelEye-V1/PadelEye_AI_Import_Terminal_V1.html" target="_blank">Open live app</a>
+      </div>
+      <div class="module-card">
+        <div class="module-tag">Module 04</div>
+        <div class="module-name">DB Manager V3</div>
+        <p class="module-desc">Admin interface for player registry, match data diagnostics, and database operations — the ops backbone of the platform.</p>
+        <a class="module-link" href="https://cdnitram.github.io/PadelEye-V1/Padeleye_dbmanage_V3.HTML" target="_blank">Open live app</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex; gap: 1rem; flex-wrap: wrap;">
+    <a class="btn-primary" href="https://github.com/CDNitram/PadelEye-V1" target="_blank">View GitHub Repo</a>
+    <a class="btn-ghost" href="https://cdnitram.github.io/PadelEye-V1/PadelEye_Americano_V39_Prod.html" target="_blank">Open Tournament Manager</a>
+  </div>
+</section>
+
+<!-- STACK -->
+<section id="stack">
+  <div class="section-label">Technical Stack</div>
+  <h2>The <span class="dim">Build.</span></h2>
+  <p class="section-intro">What I use daily, what's in production, and where I'm headed. Highlighted tags are direct matches to Athletica's requirements.</p>
+
+  <div class="stack-grid fade-up">
+    <div class="stack-cat">
+      <div class="stack-cat-name">Languages</div>
+      <div class="stack-tags">
+        <span class="tag highlight">PHP 8</span>
+        <span class="tag highlight">Python</span>
+        <span class="tag highlight">JavaScript</span>
+        <span class="tag highlight">TypeScript</span>
+        <span class="tag">HTML / CSS</span>
+      </div>
+    </div>
+    <div class="stack-cat">
+      <div class="stack-cat-name">Frameworks</div>
+      <div class="stack-tags">
+        <span class="tag highlight">Laravel</span>
+        <span class="tag">CodeIgniter</span>
+        <span class="tag highlight">React</span>
+        <span class="tag">Vue 2 (legacy exposure)</span>
+      </div>
+    </div>
+    <div class="stack-cat">
+      <div class="stack-cat-name">AI / ML</div>
+      <div class="stack-tags">
+        <span class="tag highlight">Claude Code</span>
+        <span class="tag highlight">Cursor</span>
+        <span class="tag">Copilot</span>
+        <span class="tag">Gemini</span>
+        <span class="tag">OpenCV</span>
+        <span class="tag">TensorFlow</span>
+        <span class="tag">LLM Agents</span>
+      </div>
+    </div>
+    <div class="stack-cat">
+      <div class="stack-cat-name">Cloud & Deploy</div>
+      <div class="stack-tags">
+        <span class="tag">Vultr</span>
+        <span class="tag highlight">Vercel</span>
+        <span class="tag">Google Cloud</span>
+        <span class="tag">GitHub Pages</span>
+        <span class="tag highlight">AWS S3 (roadmap)</span>
+      </div>
+    </div>
+    <div class="stack-cat">
+      <div class="stack-cat-name">Databases & APIs</div>
+      <div class="stack-tags">
+        <span class="tag highlight">SQL (schema + query opt.)</span>
+        <span class="tag highlight">REST API design</span>
+        <span class="tag">GAS V8 API</span>
+        <span class="tag">Asaas / Zoop / PIX</span>
+      </div>
+    </div>
+    <div class="stack-cat">
+      <div class="stack-cat-name">DevOps & Collab</div>
+      <div class="stack-tags">
+        <span class="tag highlight">GitHub / CI-CD</span>
+        <span class="tag">Docker</span>
+        <span class="tag">Jira</span>
+        <span class="tag">Notion</span>
+        <span class="tag">Trello</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Workflow block -->
+  <div class="ai-highlight fade-up" style="margin-top: 2rem;">
+    <div class="ai-quote">
+      AI-native development is <span class="accent">not an add-on.</span><br>
+      It's the only way I've worked since 2024.
+    </div>
+    <p style="color: var(--white-muted); font-size: 0.95rem; max-width: 620px; line-height: 1.7;">
+      Every module in PadelEye was scaffolded, iterated, and refactored with AI tools. PHP controllers in Cão Carioca are reviewed and optimised with Cursor. SQL schemas are designed with Claude. The result: faster delivery, higher quality, and zero resistance to adopting whatever comes next.
+    </p>
+    <div class="ai-tools">
+      <span class="ai-tool">Claude Code</span>
+      <span class="ai-tool">Cursor</span>
+      <span class="ai-tool">GitHub Copilot</span>
+      <span class="ai-tool">Gemini</span>
+      <span class="ai-tool">ChatGPT</span>
+    </div>
+  </div>
+</section>
+
+<!-- CÃO CARIOCA -->
+<section id="caocarioca">
+  <div class="section-label">Production SaaS · Since 2019</div>
+  <h2>Cão <span class="dim">Carioca.</span></h2>
+  <p class="section-intro">A PHP-based B2B2C SaaS for pet services operations. The proof that I can build, maintain, and scale a production platform over years — not just ship an MVP.</p>
+
+  <div class="cc-layout fade-up">
+    <div>
+      <div class="cc-card" style="margin-bottom: 1rem;">
+        <div class="metric-row">
+          <div class="big-metric">
+            <div class="big-num">900%</div>
+            <div class="big-label">Revenue Growth</div>
+          </div>
+          <div class="big-metric">
+            <div class="big-num">80+</div>
+            <div class="big-label">Business Partners</div>
+          </div>
+          <div class="big-metric">
+            <div class="big-num">6+</div>
+            <div class="big-label">Years in Production</div>
+          </div>
+        </div>
+        <ul class="proof-list">
+          <li>50+ PHP controllers: contracts, billing, payments, client management, analytics, gamification</li>
+          <li>Payment integrations: Asaas, Zoop, PIX, ContaAzul — custom PHP, not plugins</li>
+          <li>Hosted on Vultr; React components in frontend; Redis caching; cron automation</li>
+          <li>Laravel ERP v2 currently in rebuild — direct daily architecture work</li>
+          <li>AI and ML embedded into live ops since 2023</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="cc-card">
+        <div class="stack-cat-name" style="margin-bottom: 1rem;">PHP Stack Proof</div>
+        <p style="font-size: 0.88rem; color: var(--white-muted); line-height: 1.65; margin-bottom: 1.25rem;">
+          Six-plus years leading PHP development. Not as a hands-off PM — as the person who sat in architecture reviews, dug into controller logic to fix bugs, and understood every integration in the system. CodeIgniter legacy, Laravel now.
+        </p>
+        <div class="stack-tags">
+          <span class="tag highlight">PHP 8</span>
+          <span class="tag highlight">Laravel</span>
+          <span class="tag">CodeIgniter</span>
+          <span class="tag highlight">REST APIs</span>
+          <span class="tag highlight">SQL</span>
+          <span class="tag">Redis</span>
+          <span class="tag">React</span>
+          <span class="tag">Vultr</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BACKGROUND -->
+<section id="background">
+  <div class="section-label">Career Path</div>
+  <h2>From Business <span class="dim">to Builder.</span></h2>
+  <p class="section-intro">Twenty years of real-world domain experience that now powers better product decisions than any computer science degree could.</p>
+
+  <div class="timeline fade-up">
+    <div class="timeline-item">
+      <div class="tl-date">2024 – Present</div>
+      <div class="tl-role">Founder & Lead Developer</div>
+      <div class="tl-org">PadelEye · Rio de Janeiro / Remote</div>
+      <div class="tl-desc">AI-native sports analytics platform. Sole developer, product owner, and live ops manager. Six tournaments, 306+ matches, full stack from database to UI.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-date">2019 – 2025</div>
+      <div class="tl-role">Product Owner & Technical Lead</div>
+      <div class="tl-org">Cão Carioca ERP · Rio de Janeiro</div>
+      <div class="tl-desc">Led a PHP SaaS from 10 to 80+ business partners, 900% revenue growth. Architecture reviews, schema decisions, payment integrations, release management.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-date">2017 – Present</div>
+      <div class="tl-role">Co-Founder & Product Lead</div>
+      <div class="tl-org">TechNigma AI Lab · Rio de Janeiro / Remote</div>
+      <div class="tl-desc">Incubated products across pet services, sports-tech, and O&G supply chain. Product vision, rapid prototyping, proof-of-concept validation across multiple verticals.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-date">2006 – 2017</div>
+      <div class="tl-role">Supply Chain Intern to Leader</div>
+      <div class="tl-org">Seadrill Brazil · Rio de Janeiro</div>
+      <div class="tl-desc">From intern to Supply Chain Leader over 11 years — offshore O&G supply chain at enterprise scale. Cross-functional work with global teams across the US, Europe, and Latin America. Domain expertise that now informs every system architecture decision.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-label">Academic & Certifications</div>
+  <h2>The <span class="dim">Credentials.</span></h2>
+  <p class="section-intro">A rare combination: formal AI/ML training at graduate level, an MBA in business economics, and a decade of real-world product execution.</p>
+
+  <div class="edu-grid fade-up">
+    <div class="edu-card">
+      <div class="edu-degree">MSc / Grad Cert · Artificial Intelligence & ML</div>
+      <div class="edu-school">XP Educação · 2024–2025 · 440 hours</div>
+      <div class="edu-grade">Grade: 97 · ECE-Certified U.S. Equiv.</div>
+      <p style="font-size: 0.82rem; color: var(--white-dim); margin-top: 0.75rem; line-height: 1.5;">Neural Networks, Deep Learning, CNN, NLP, Reinforcement Learning, ML Architecture & Engineering, IoT ML</p>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">MBA · Business Economics</div>
+      <div class="edu-school">Universidade Federal Fluminense · 2009–2011</div>
+      <div class="edu-grade">Grade: 9 · WES/ECE Evaluated</div>
+      <p style="font-size: 0.82rem; color: var(--white-dim); margin-top: 0.75rem; line-height: 1.5;">Strategic Planning, Corporate Finance, Risk Management, International Economy</p>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">BA · International Business / Trade</div>
+      <div class="edu-school">Estácio · 2004–2007</div>
+      <div class="edu-grade">Grade: 8.5 · WES U.S. Equiv.</div>
+      <p style="font-size: 0.82rem; color: var(--white-dim); margin-top: 0.75rem; line-height: 1.5;">International Trade, Law, Logistics, Import/Export, Geopolitics</p>
+    </div>
+    <div class="edu-card">
+      <div class="edu-degree">AI Product Manager Cert.</div>
+      <div class="edu-school">IBM / LinkedIn Learning · 2025–2026</div>
+      <div class="edu-grade">~60% Complete</div>
+      <p style="font-size: 0.82rem; color: var(--white-dim); margin-top: 0.75rem; line-height: 1.5;">Product management, AI product leadership, Agile delivery for AI-native teams</p>
+    </div>
+  </div>
+
+  <div style="margin-top: 1.5rem;">
+    <div class="section-label" style="margin-bottom: 1rem;">Key Certifications</div>
+    <div class="cert-list fade-up">
+      <span class="cert-tag">AAAI Member 2026</span>
+      <span class="cert-tag">IBM Deep Learning · TensorFlow</span>
+      <span class="cert-tag">IBM Generative AI for Software Dev</span>
+      <span class="cert-tag">IBM SQL & Relational Databases</span>
+      <span class="cert-tag">XP ML Engineer & Architect</span>
+      <span class="cert-tag">XP Python Developer</span>
+      <span class="cert-tag">IBM Data Visualization · Python</span>
+      <span class="cert-tag">AI Product Leader · LinkedIn</span>
+      <span class="cert-tag">Generative AI for PMs · LinkedIn</span>
+      <span class="cert-tag">Scrum Advanced · LinkedIn</span>
+    </div>
+  </div>
+</section>
+
+<!-- AI LAB -->
+<section id="ailab">
+  <div class="section-label">Interactive AI Demos</div>
+  <h2>Martin's <span class="dim">AI Lab.</span></h2>
+  <p class="section-intro">Three live demos powered by the same AI-native workflow Martin uses every day. Try them.</p>
+
+  <div class="ailab-grid">
+
+    <!-- DEMO 1: Match Analyst -->
+    <div class="ailab-card">
+      <div class="ailab-card-header">
+        <div class="ailab-icon">🎾</div>
+        <div>
+          <div class="ailab-card-title">Live Match Analyst</div>
+          <div class="ailab-card-desc">Paste padel match scores → get AI tactical breakdown</div>
+        </div>
+      </div>
+      <div class="ailab-body">
+        <div class="ailab-chips">
+          <button class="ailab-chip" onclick="fillDemo('match', this.textContent)">Pair A 6-3 6-4 vs Pair B</button>
+          <button class="ailab-chip" onclick="fillDemo('match', this.textContent)">Player 1: 18W 4L. Player 2: 9W 12L</button>
+          <button class="ailab-chip" onclick="fillDemo('match', this.textContent)">Set 1: 7-5, Set 2: 3-6, Set 3: 6-4. Winners mostly from right side</button>
+        </div>
+        <textarea id="match-input" class="ailab-textarea" placeholder="Paste match scores, stats, or notes here. E.g: Pair A won 6-3, 6-4. Most points won at net. Player 1 had 14 winners, 8 errors..."></textarea>
+        <button class="ailab-run" onclick="runDemo('match')" id="match-btn">Analyse Match ➤</button>
+        <div class="ailab-output" id="match-output"></div>
+      </div>
+    </div>
+
+    <!-- DEMO 2: Stack Recommender -->
+    <div class="ailab-card">
+      <div class="ailab-card-header">
+        <div class="ailab-icon">🏗️</div>
+        <div>
+          <div class="ailab-card-title">AI Stack Recommender</div>
+          <div class="ailab-card-desc">Describe a tech problem → Martin's AI proposes an approach</div>
+        </div>
+      </div>
+      <div class="ailab-body">
+        <div class="ailab-chips">
+          <button class="ailab-chip" onclick="fillDemo('stack', this.textContent)">Migrate Vue 2 to React 19, 3 devs, 6 weeks</button>
+          <button class="ailab-chip" onclick="fillDemo('stack', this.textContent)">Add Garmin + Strava API to a Laravel backend</button>
+          <button class="ailab-chip" onclick="fillDemo('stack', this.textContent)">Replace Google Sheets DB with SQL, keep API layer</button>
+        </div>
+        <textarea id="stack-input" class="ailab-textarea" placeholder="Describe a technical challenge. E.g: We need to migrate our legacy Vue 2 frontend to React 19 with a team of 3 devs in 6 weeks without breaking production..."></textarea>
+        <button class="ailab-run" onclick="runDemo('stack')" id="stack-btn">Get Recommendation ➤</button>
+        <div class="ailab-output" id="stack-output"></div>
+      </div>
+    </div>
+
+    <!-- DEMO 3: Interview Me -->
+    <div class="ailab-card">
+      <div class="ailab-card-header">
+        <div class="ailab-icon">🎙️</div>
+        <div>
+          <div class="ailab-card-title">Interview Martin</div>
+          <div class="ailab-card-desc">Type any job requirement → Martin responds in first person</div>
+        </div>
+      </div>
+      <div class="ailab-body">
+        <div class="ailab-chips">
+          <button class="ailab-chip" onclick="fillDemo('interview', this.textContent)">Tell me about your PHP and Laravel experience</button>
+          <button class="ailab-chip" onclick="fillDemo('interview', this.textContent)">How do you use AI in your daily development workflow?</button>
+          <button class="ailab-chip" onclick="fillDemo('interview', this.textContent)">Why do you want to work at a sports-tech startup?</button>
+          <button class="ailab-chip" onclick="fillDemo('interview', this.textContent)">What's the most complex system you've shipped?</button>
+        </div>
+        <textarea id="interview-input" class="ailab-textarea" placeholder="Ask Martin anything. E.g: Can you walk me through your experience with REST API design and how you've applied it in production?"></textarea>
+        <button class="ailab-run" onclick="runDemo('interview')" id="interview-btn">Ask Martin ➤</button>
+        <div class="ailab-output" id="interview-output"></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CV INLINE -->
+<section id="cv" style="border-top: 1px solid var(--border);">
+  <div class="section-label">Curriculum Vitae</div>
+  <h2>The <span class="dim">Full Record.</span></h2>
+  <p class="section-intro">Complete career profile, technical stack, projects, education and certifications — ready to download or share.</p>
+
+  <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; max-width: 820px;">
+
+    <!-- CV Header -->
+    <div style="padding: 2.5rem; border-bottom: 1px solid var(--border); background: var(--off-black);">
+      <div style="font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 2.4rem; text-transform: uppercase; letter-spacing: -0.02em; color: var(--white); line-height: 1;">Martin DC</div>
+      <div style="font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 1rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.4rem;">AI-Native Full-Stack Product Developer</div>
+      <div style="font-size: 0.82rem; color: var(--white-muted); margin-top: 0.5rem;">Rio de Janeiro, Brazil · Remote · English · Spanish · Portuguese (native)</div>
+      <div style="font-size: 0.82rem; margin-top: 0.25rem;">
+        <a href="https://github.com/CDNitram" target="_blank" style="color: var(--accent); text-decoration: none;">github.com/CDNitram</a>
+        <span style="color: var(--white-dim);"> · </span>
+        <a href="https://www.linkedin.com/in/martin-cordoba-a36a841b" target="_blank" style="color: var(--accent); text-decoration: none;">linkedin.com/in/martin-cordoba-a36a841b</a>
+        <span style="color: var(--white-dim);"> · </span>
+        <span style="color: var(--white-muted);">martin.cordoba@yahoo.com</span>
+      </div>
+    </div>
+
+    <!-- Profile -->
+    <div class="cv-block">
+      <div class="cv-section-head">Profile</div>
+      <p class="cv-body">AI product development entrepreneur with 15+ years building and scaling technology-enabled businesses. Founder of PadelEye (live AI sports analytics platform) and former Product Owner of Cão Carioca Pet Genius ERP — a PHP SaaS that achieved 900% revenue growth and scaled from 10 to 80+ business partners. Co-founder of TechNigma AI Lab, incubating products across pet services, sports-tech, and O&G supply chain. Came to software development from business and athlete life — deep domain knowledge in sports combined with an AI-native workflow that has been the foundation of every project since 2024.</p>
+    </div>
+
+    <!-- Technical Skills -->
+    <div class="cv-block" style="border-top: 1px solid var(--border);">
+      <div class="cv-section-head">Technical Skills</div>
+      <div class="cv-two-col">
+        <div>
+          <div class="cv-skill-row"><span class="cv-skill-label">Languages</span> PHP 8, Python, JavaScript, TypeScript, HTML/CSS</div>
+          <div class="cv-skill-row"><span class="cv-skill-label">Frameworks</span> Laravel (current rebuild), CodeIgniter (legacy), React</div>
+          <div class="cv-skill-row"><span class="cv-skill-label">AI / ML</span> OpenCV, TensorFlow, LLMs, ML pipelines, Generative AI</div>
+          <div class="cv-skill-row"><span class="cv-skill-label">Databases</span> SQL schema design &amp; query optimisation, Google Sheets (legacy)</div>
+        </div>
+        <div>
+          <div class="cv-skill-row"><span class="cv-skill-label">AI Workflow</span> Claude Code, Cursor, Copilot, Gemini — daily on every project</div>
+          <div class="cv-skill-row"><span class="cv-skill-label">Cloud</span> Vultr (primary prod), Vercel, Google Cloud, GitHub Pages</div>
+          <div class="cv-skill-row"><span class="cv-skill-label">DevOps</span> GitHub, CI/CD pipelines, Docker</div>
+          <div class="cv-skill-row"><span class="cv-skill-label">APIs</span> REST design &amp; consumption, GAS V8, Asaas, Zoop, PIX, ContaAzul</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flagship Projects -->
+    <div class="cv-block" style="border-top: 1px solid var(--border);">
+      <div class="cv-section-head">Flagship Projects</div>
+
+      <div class="cv-job-header">
+        <div>
+          <div class="cv-role">Founder &amp; Lead Developer — PadelEye</div>
+          <div class="cv-org">Rio de Janeiro · Remote</div>
+        </div>
+        <div class="cv-date">2024 – Present</div>
+      </div>
+      <ul class="cv-list">
+        <li>AI-native platform covering the full lifecycle of a padel player — amateur sessions to competitive tournaments</li>
+        <li>Live modules: Tournament Manager V39, Session Manager V10, AI Import Terminal V1.4, DB Manager V3</li>
+        <li>Production: 6 live tournaments, 22+ sessions, 30+ players, 306+ matches recorded</li>
+        <li>Stack: Python · OpenCV · ML pipelines · LLM agents · GAS V8 API · Vercel · GitHub Pages</li>
+        <li>Migrating GAS backend → SQL + REST API stack; schema design and API layer in progress</li>
+        <li>Wearable roadmap: Garmin, Strava, Oura, Zepp — mirrors Athletica's device integration work directly</li>
+      </ul>
+      <div style="font-size:0.78rem; margin-top:0.5rem; padding: 0 2rem 0;">
+        <span style="color:var(--white-dim); font-weight:600;">Live: </span>
+        <a href="https://cdnitram.github.io/PadelEye-V1/PadelEye_Americano_V39_Prod.html" target="_blank" style="color:var(--accent);text-decoration:none;">cdnitram.github.io/PadelEye-V1/PadelEye_Americano_V39_Prod.html</a>
+        <span style="color:var(--white-dim);"> · </span>
+        <span style="color:var(--white-dim); font-weight:600;">GitHub: </span>
+        <a href="https://github.com/CDNitram/PadelEye-V1" target="_blank" style="color:var(--accent);text-decoration:none;">github.com/CDNitram/PadelEye-V1</a>
+      </div>
+
+      <div class="cv-job-header" style="margin-top:1.5rem;">
+        <div>
+          <div class="cv-role">Product Owner &amp; Technical Lead — Cão Carioca ERP</div>
+          <div class="cv-org">Rio de Janeiro</div>
+        </div>
+        <div class="cv-date">2019 – 2025</div>
+      </div>
+      <ul class="cv-list">
+        <li>PHP SaaS for pet services — fully in production since 2019, scaled from 10 to 80+ business partners</li>
+        <li>Achieved 900% revenue growth over the platform lifecycle</li>
+        <li>50+ PHP controllers: client &amp; provider management, contracts, invoicing, payments, gamification</li>
+        <li>Payment stack: Asaas, Zoop, PIX, ContaAzul — all custom-integrated via PHP controllers on Vultr</li>
+        <li>Current ERP v2 rebuild in Laravel — direct daily exposure to Laravel architecture</li>
+        <li>AI and ML embedded into live operations since 2023</li>
+      </ul>
+    </div>
+
+    <!-- Experience -->
+    <div class="cv-block" style="border-top: 1px solid var(--border);">
+      <div class="cv-section-head">Experience</div>
+
+      <div class="cv-job-header">
+        <div>
+          <div class="cv-role">Co-Founder &amp; Product Lead — TechNigma AI Lab</div>
+          <div class="cv-org">Rio de Janeiro · Remote</div>
+        </div>
+        <div class="cv-date">2017 – Present</div>
+      </div>
+      <ul class="cv-list">
+        <li>Incubated and launched technology businesses across pet care, sports-tech, and O&amp;G supply chain</li>
+        <li>Led product vision, rapid prototyping, and proof-of-concept validation across multiple verticals</li>
+        <li>Designed ERP-based operating systems integrating CRM, BI, finance, and operations modules</li>
+      </ul>
+
+      <div class="cv-job-header" style="margin-top:1.5rem;">
+        <div>
+          <div class="cv-role">Supply Chain Intern to Leader — Seadrill Brazil</div>
+          <div class="cv-org">Rio de Janeiro</div>
+        </div>
+        <div class="cv-date">2006 – 2017</div>
+      </div>
+      <ul class="cv-list">
+        <li>8 years leading offshore O&amp;G supply chain at enterprise scale — procurement, logistics, vendor management</li>
+        <li>Cross-functional collaboration with global teams across the US, Europe, and Latin America</li>
+      </ul>
+
+    </div>
+
+    <!-- Education -->
+    <div class="cv-block" style="border-top: 1px solid var(--border);">
+      <div class="cv-section-head">Education</div>
+      <div class="cv-two-col">
+        <div>
+          <div class="cv-skill-row"><span class="cv-skill-label">MSc / Grad Cert</span> Artificial Intelligence &amp; ML — XP Educação (2024–2025)</div>
+          <div style="font-size:0.78rem; color:var(--accent); padding-left:0; margin: 0.1rem 0 0.5rem;">440 hrs · Grade: 97 · ECE-certified U.S. grad equiv.</div>
+          <div class="cv-skill-row"><span class="cv-skill-label">MBA</span> Business Economics — UFF (2009–2011)</div>
+          <div style="font-size:0.78rem; color:var(--accent); margin: 0.1rem 0 0.5rem;">Grade: 9 · WES/ECE evaluated</div>
+        </div>
+        <div>
+          <div class="cv-skill-row"><span class="cv-skill-label">BA</span> International Business — Estácio (2004–2007)</div>
+          <div style="font-size:0.78rem; color:var(--accent); margin: 0.1rem 0 0.5rem;">Grade: 8.5 · WES U.S. equiv.</div>
+          <div class="cv-skill-row"><span class="cv-skill-label">In Progress</span> AI Product Manager Cert. — IBM / LinkedIn (2025–2026)</div>
+          <div style="font-size:0.78rem; color:var(--accent); margin: 0.1rem 0 0.5rem;">~60% complete</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certifications -->
+    <div class="cv-block" style="border-top: 1px solid var(--border);">
+      <div class="cv-section-head">Key Certifications</div>
+      <div style="display:flex; flex-wrap:wrap; gap:0.4rem;">
+        <span class="cert-tag">AAAI Member 2026</span>
+        <span class="cert-tag">IBM Deep Learning · TensorFlow</span>
+        <span class="cert-tag">IBM Generative AI for Software Dev</span>
+        <span class="cert-tag">IBM SQL &amp; Relational Databases</span>
+        <span class="cert-tag">XP ML Engineer &amp; Architect</span>
+        <span class="cert-tag">XP Python Developer</span>
+        <span class="cert-tag">IBM Data Visualization · Python</span>
+        <span class="cert-tag">AI Product Leader · LinkedIn</span>
+        <span class="cert-tag">Generative AI for PMs · LinkedIn</span>
+        <span class="cert-tag">Scrum Advanced · LinkedIn</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="full-bleed">
+  <div class="contact-heading">
+    Let's Build<br><span class="outline">Something Real.</span>
+  </div>
+  <p class="contact-sub"><a href="https://www.linkedin.com/in/martin-cordoba-a36a841b" target="_blank" style="color:var(--accent);text-decoration:none;font-weight:600;">View LinkedIn Profile →</a></p>
+  <div class="contact-links">
+    <a class="contact-link" href="https://br.linkedin.com/company/technigma" target="_blank">TechNigma AI Lab</a>
+    <span style="color: var(--white-dim);">→</span>
+    <a class="contact-link" href="mailto:martin.cordoba@yahoo.com">martin.cordoba@yahoo.com</a>
+    <span style="color: var(--white-dim);">·</span>
+    <a class="contact-link" href="https://github.com/CDNitram" target="_blank">github.com/CDNitram</a>
+  </div>
+  <p style="color: var(--white-dim); font-size: 0.75rem; margin-top: 2rem; letter-spacing: 0.05em; text-transform: uppercase;">Martin DC · Rio de Janeiro, Brazil · English · Spanish · Portuguese</p>
+</section>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  function martinScroll(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function toggleMenu() {
+    const drawer = document.getElementById('mobileDrawer');
+    const btn = document.getElementById('hamburger');
+    drawer.classList.toggle('open');
+    btn.classList.toggle('open');
+    document.body.style.overflow = drawer.classList.contains('open') ? 'hidden' : '';
+  }
+
+  function drawerGo(id) {
+    document.getElementById('mobileDrawer').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(() => martinScroll(id), 50);
+  }
+
+  function toggleDrawerCases() {
+    const sub = document.getElementById('drawerCases');
+    sub.style.display = sub.style.display === 'none' ? 'block' : 'none';
+  }
+
+  function toggleDropdown(e) {
+    e.stopPropagation();
+    const menu = document.getElementById('casesMenu');
+    const btn = document.getElementById('casesBtn');
+    const isOpen = menu.classList.contains('open');
+    menu.classList.toggle('open');
+    btn.classList.toggle('active', !isOpen);
+  }
+
+  function closeDropdown() {
+    document.getElementById('casesMenu').classList.remove('open');
+    document.getElementById('casesBtn').classList.remove('active');
+  }
+
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.nav-dropdown')) closeDropdown();
+  });
+</script>
+
+<!-- CHAT WIDGET -->
+<div id="chat-bubble">
+  <button id="chat-toggle" onclick="toggleChat()" aria-label="Ask about Martin">💬</button>
+</div>
+
+<div id="chat-window">
+  <div id="chat-header">
+    <div class="chat-header-info">
+      <div class="chat-avatar">M</div>
+      <div>
+        <div class="chat-header-name">Ask about Martin</div>
+        <div class="chat-header-sub">AI assistant · answers based on this profile</div>
+      </div>
+    </div>
+    <button id="chat-close" onclick="toggleChat()">✕</button>
+  </div>
+  <div id="chat-messages">
+    <div class="msg assistant">Hi! I'm Martin's profile assistant. Ask me anything about his experience, skills, projects, or why he's a great fit for Athletica.</div>
+  </div>
+  <div class="chat-suggestions" id="suggestions">
+    <button class="chat-suggestion" onclick="askSuggestion(this)">What has Martin shipped?</button>
+    <button class="chat-suggestion" onclick="askSuggestion(this)">PHP & Laravel experience?</button>
+    <button class="chat-suggestion" onclick="askSuggestion(this)">How does he use AI?</button>
+    <button class="chat-suggestion" onclick="askSuggestion(this)">Why Athletica?</button>
+  </div>
+  <div id="chat-input-row">
+    <input id="chat-input" type="text" placeholder="Ask anything about Martin…" onkeydown="if(event.key==='Enter') sendMsg()" />
+    <button id="chat-send" onclick="sendMsg()">➤</button>
+  </div>
+</div>
+
+<script>
+
+  // ── AI LAB ──
+  const MARTIN_BIO = `Martin DC is a Brazilian AI product developer based in Rio de Janeiro.
+Career: Founder of PadelEye App (AI-native padel analytics, live since 2024, 6 tournaments, 306+ matches).
+Product Owner of Cão Carioca ERP (PHP SaaS, 900% revenue growth, 80+ partners, live since 2019, Laravel v2 in rebuild).
+Co-founder TechNigma AI Lab. Supply Chain Intern to Leader at Seadrill Brazil 2006-2017.
+Skills: PHP 8, Laravel, Python, JavaScript, TypeScript, React, SQL, REST APIs, OpenCV, TensorFlow, LLMs, Docker.
+AI tools daily: Claude Code, Cursor, Copilot, Gemini. Cloud: Vultr, Vercel, Google Cloud.
+Education: MSc AI & ML (Grade 97, ECE-certified), MBA Business Economics (Grade 9), BA International Business (Grade 8.5).
+Languages: English, Spanish, Portuguese (all native). Open to startup budget. Available Western Hemisphere + EU timezones.`;
+
+  const DEMO_PROMPTS = {
+    match: `You are an expert padel coach and sports data analyst. Analyse the following padel match data and provide a concise tactical breakdown: key patterns, strengths, weaknesses, and 2-3 specific coaching recommendations. Be direct and insightful. Format clearly with short sections.`,
+    stack: `You are Martin DC, an AI-native full-stack developer with expertise in PHP/Laravel, React, Python, SQL, REST APIs, and AI-native development workflows. A client or team has described a technical challenge. Propose a clear, practical approach: recommended stack/tools, migration strategy, timeline considerations, and risks. Be concise and confident. Speak as a senior developer who has shipped production systems.`,
+    interview: `You are Martin DC, an AI-native product developer from Rio de Janeiro. Answer the following job interview question in first person, drawing from your real experience: PadelEye App (AI sports analytics, live production), Cão Carioca ERP (PHP/Laravel SaaS, 900% growth), TechNigma AI Lab, Seadrill supply chain. Be authentic, specific, and confident. Keep it to 3-4 paragraphs max.
+
+Your profile:
+${MARTIN_BIO}`
+  };
+
+  function fillDemo(type, text) {
+    document.getElementById(type + '-input').value = text;
+    document.getElementById(type + '-input').focus();
+  }
+
+  async function runDemo(type) {
+    const input = document.getElementById(type + '-input').value.trim();
+    if (!input) return;
+
+    const btn = document.getElementById(type + '-btn');
+    const output = document.getElementById(type + '-output');
+
+    btn.disabled = true;
+    output.className = 'ailab-output loading';
+    output.textContent = 'Analysing…';
+
+    const labels = {
+      match: 'Tactical Breakdown',
+      stack: 'Martin\'s Recommendation',
+      interview: 'Martin\'s Answer'
+    };
+
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-api-key': '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', 'anthropic-version': '2023-06-01' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          messages: [{
+            role: 'user',
+            content: DEMO_PROMPTS[type] + '\n\n' + input
+          }]
+        })
+      });
+
+      const data = await res.json();
+      const reply = data.content?.[0]?.text || 'No response received. Please try again.';
+
+      output.className = 'ailab-output visible';
+      output.innerHTML = '<span class="out-label">' + labels[type] + '</span>' + reply.replace(/\n/g, '<br>');
+
+    } catch(e) {
+      output.className = 'ailab-output visible';
+      output.textContent = 'Connection error. Please try again.';
+    }
+
+    btn.disabled = false;
+  }
+
+  const MARTIN_PROFILE = 'Martin DC is a Brazilian AI product developer and entrepreneur based in Rio de Janeiro. He is applying for the AI Full-Stack Developer role at Athletica.\n\nCAREER:\n- Founder & Lead Developer of PadelEye App (2024–present): AI-native sports analytics platform for padel. Live modules include Tournament Manager V39, Session Manager V10, AI Import Terminal V1.4, and DB Manager V3. Covers 6 live tournaments, 22+ sessions, 30+ players, 306+ matches. Stack: Python, OpenCV, ML pipelines, LLM agents, GAS V8 API, Vercel, GitHub Pages. Currently migrating from GAS to SQL + REST API.\n- Product Owner & Technical Lead, Cão Carioca ERP (2019–2025): PHP SaaS for pet services. 900% revenue growth. Scaled from 10 to 80+ business partners. 50+ PHP controllers. Payment integrations: Asaas, Zoop, PIX, ContaAzul. Hosted on Vultr. Current v2 rebuild in Laravel.\n- Co-Founder, TechNigma AI Lab (2017–present): incubated products across pet services, sports-tech, O&G supply chain.\n- Supply Chain Intern to Leader, Seadrill Brazil (2006–2017): offshore O&G supply chain at enterprise scale.\n\nTECHNICAL SKILLS:\nLanguages: PHP 8, Python, JavaScript, TypeScript, HTML/CSS\nFrameworks: Laravel (current), CodeIgniter (legacy), React\nAI/ML: OpenCV, TensorFlow, LLMs, ML pipelines, Generative AI\nAI Tools (daily): Claude Code, Cursor, GitHub Copilot, Gemini, ChatGPT\nCloud: Vultr, Vercel, Google Cloud, GitHub Pages\nDevOps: GitHub, CI/CD, Docker\nAPIs: REST design & consumption, GAS V8, Asaas, Zoop, PIX, ContaAzul\nCollaboration: Jira, Trello, Notion\n\nEDUCATION:\n- MSc/Grad Cert in AI & ML, XP Educação (2024–2025), 440hrs, Grade 97, ECE-certified U.S. equivalent\n- MBA Business Economics, UFF (2009–2011), Grade 9, WES/ECE evaluated\n- BA International Business, Estácio (2004–2007), Grade 8.5, WES U.S. equivalent\n- AI Product Manager Professional Certificate, IBM/LinkedIn (in progress, ~60% complete)\n\nKEY CERTIFICATIONS: AAAI Member 2026, IBM Deep Learning TensorFlow, IBM Generative AI for Software Dev, IBM SQL & Relational Databases, XP ML Engineer & Architect, XP Python Developer, IBM Data Visualization Python, AI Product Leader LinkedIn, Scrum Advanced.\n\nPERSONAL: Amateur athlete — soccer and padel. Native English, Spanish, Portuguese. Available across Western Hemisphere and European timezones. Open to startup budget. Values networking with USA/Europe and hands-on AI experience over high compensation. AI-native workflow since 2024 — every project built with AI tools from day one.\n\nLINKS: GitHub: github.com/CDNitram | LinkedIn: linkedin.com/in/martin-cordoba-a36a841b | PadelEye live: cdnitram.github.io/PadelEye-V1/PadelEye_Americano_V39_Prod.html';
+
+  const chatHistory = [];
+
+  function toggleChat() {
+    const w = document.getElementById('chat-window');
+    w.classList.toggle('open');
+    if (w.classList.contains('open')) {
+      document.getElementById('chat-input').focus();
+    }
+  }
+
+  function askSuggestion(btn) {
+    document.getElementById('chat-input').value = btn.textContent;
+    document.getElementById('suggestions').style.display = 'none';
+    sendMsg();
+  }
+
+  async function sendMsg() {
+    const input = document.getElementById('chat-input');
+    const send = document.getElementById('chat-send');
+    const text = input.value.trim();
+    if (!text) return;
+
+    appendMsg(text, 'user');
+    input.value = '';
+    send.disabled = true;
+
+    chatHistory.push({ role: 'user', content: text });
+
+    const typing = appendMsg('Thinking…', 'assistant typing');
+
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-api-key': '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', 'anthropic-version': '2023-06-01' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 1000,
+          system: `You are a helpful assistant embedded in Martin DC's professional profile page. Answer questions about Martin based only on the following profile information. Be concise, warm, and professional. If asked something not covered in the profile, say you don't have that information but they can contact Martin directly.\n\nPROFILE:\n${MARTIN_PROFILE}`,
+          messages: chatHistory
+        })
+      });
+
+      const data = await res.json();
+      const reply = data.content?.[0]?.text || 'Sorry, I could not get a response. Please try again.';
+
+      typing.remove();
+      appendMsg(reply, 'assistant');
+      chatHistory.push({ role: 'assistant', content: reply });
+
+    } catch(e) {
+      typing.remove();
+      appendMsg('Connection error. Please try again.', 'assistant');
+    }
+
+    send.disabled = false;
+    input.focus();
+  }
+
+  function appendMsg(text, cls) {
+    const messages = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+    div.className = 'msg ' + cls;
+    div.textContent = text;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+    return div;
+  }
+</script>
+
+</body>
+</html>
