@@ -2171,6 +2171,22 @@ Your profile:
 ${MARTIN_BIO}`
   };
 
+
+  function parseMarkdown(text) {
+    let out = text
+      .replace(/^### (.+)$/gm, '<h4 style="font-family:\'Barlow Condensed\',sans-serif;font-weight:700;font-size:0.9rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent);margin:1rem 0 0.3rem;">$1</h4>')
+      .replace(/^## (.+)$/gm, '<h3 style="font-family:\'Barlow Condensed\',sans-serif;font-weight:700;font-size:1.05rem;text-transform:uppercase;color:var(--white);margin:1.1rem 0 0.4rem;">$1</h3>')
+      .replace(/^# (.+)$/gm, '<h2 style="font-family:\'Barlow Condensed\',sans-serif;font-weight:800;font-size:1.2rem;text-transform:uppercase;color:var(--white);margin:1rem 0 0.4rem;">$1</h2>')
+      .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong style="color:var(--white);font-weight:600;">$1</strong>')
+      .replace(/\*([^*]+?)\*/g, '<em>$1</em>')
+      .replace(/^[-•] (.+)$/gm, '<div style="padding:0.2rem 0 0.2rem 1rem;border-left:2px solid var(--accent-mid);margin:0.2rem 0;">$1</div>')
+      .replace(/^---$/gm, '<hr style="border:none;border-top:1px solid var(--border);margin:0.75rem 0;">')
+      .replace(/\n\n/g, '<br><br>')
+      .replace(/\n/g, '<br>');
+    return out;
+  }
+
   function fillDemo(type, text) {
     document.getElementById(type + '-input').value = text;
     document.getElementById(type + '-input').focus();
@@ -2211,7 +2227,7 @@ ${MARTIN_BIO}`
       const reply = data.content?.[0]?.text || data.error?.message || JSON.stringify(data) || 'No response received.';
 
       output.className = 'ailab-output visible';
-      output.innerHTML = '<span class="out-label">' + labels[type] + '</span>' + reply.replace(/\n/g, '<br>');
+      output.innerHTML = '<span class="out-label">' + labels[type] + '</span>' + parseMarkdown(reply);
 
     } catch(e) {
       output.className = 'ailab-output visible';
@@ -2285,7 +2301,11 @@ ${MARTIN_BIO}`
     const messages = document.getElementById('chat-messages');
     const div = document.createElement('div');
     div.className = 'msg ' + cls;
-    div.textContent = text;
+    if (cls.includes('assistant') && !cls.includes('typing')) {
+      div.innerHTML = parseMarkdown(text);
+    } else {
+      div.textContent = text;
+    }
     messages.appendChild(div);
     messages.scrollTop = messages.scrollHeight;
     return div;
