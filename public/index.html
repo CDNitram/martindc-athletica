@@ -1820,49 +1820,7 @@
 
   <div class="ailab-grid">
 
-    <!-- DEMO 1: Match Analyst -->
-    <div class="ailab-card">
-      <div class="ailab-card-header">
-        <div class="ailab-icon">🎾</div>
-        <div>
-          <div class="ailab-card-title">Live Match Analyst</div>
-          <div class="ailab-card-desc">Paste padel match scores → get AI tactical breakdown</div>
-        </div>
-      </div>
-      <div class="ailab-body">
-        <div class="ailab-chips">
-          <button class="ailab-chip" onclick="fillDemo('match', this.textContent)">Pair A 6-3 6-4 vs Pair B</button>
-          <button class="ailab-chip" onclick="fillDemo('match', this.textContent)">Player 1: 18W 4L. Player 2: 9W 12L</button>
-          <button class="ailab-chip" onclick="fillDemo('match', this.textContent)">Set 1: 7-5, Set 2: 3-6, Set 3: 6-4. Winners mostly from right side</button>
-        </div>
-        <textarea id="match-input" class="ailab-textarea" placeholder="Paste match scores, stats, or notes here. E.g: Pair A won 6-3, 6-4. Most points won at net. Player 1 had 14 winners, 8 errors..."></textarea>
-        <button class="ailab-run" onclick="runDemo('match')" id="match-btn">Analyse Match ➤</button>
-        <div class="ailab-output" id="match-output"></div>
-      </div>
-    </div>
-
-    <!-- DEMO 2: Stack Recommender -->
-    <div class="ailab-card">
-      <div class="ailab-card-header">
-        <div class="ailab-icon">🏗️</div>
-        <div>
-          <div class="ailab-card-title">AI Stack Recommender</div>
-          <div class="ailab-card-desc">Describe a tech problem → Martin's AI proposes an approach</div>
-        </div>
-      </div>
-      <div class="ailab-body">
-        <div class="ailab-chips">
-          <button class="ailab-chip" onclick="fillDemo('stack', this.textContent)">Migrate Vue 2 to React 19, 3 devs, 6 weeks</button>
-          <button class="ailab-chip" onclick="fillDemo('stack', this.textContent)">Add Garmin + Strava API to a Laravel backend</button>
-          <button class="ailab-chip" onclick="fillDemo('stack', this.textContent)">Replace Google Sheets DB with SQL, keep API layer</button>
-        </div>
-        <textarea id="stack-input" class="ailab-textarea" placeholder="Describe a technical challenge. E.g: We need to migrate our legacy Vue 2 frontend to React 19 with a team of 3 devs in 6 weeks without breaking production..."></textarea>
-        <button class="ailab-run" onclick="runDemo('stack')" id="stack-btn">Get Recommendation ➤</button>
-        <div class="ailab-output" id="stack-output"></div>
-      </div>
-    </div>
-
-    <!-- DEMO 3: Interview Me -->
+    <!-- DEMO 1: Interview Me -->
     <div class="ailab-card">
       <div class="ailab-card-header">
         <div class="ailab-icon">🎙️</div>
@@ -1884,7 +1842,49 @@
       </div>
     </div>
 
-  </div>
+        <!-- DEMO 2: Match Analyst -->
+    <div class="ailab-card">
+      <div class="ailab-card-header">
+        <div class="ailab-icon">🎾</div>
+        <div>
+          <div class="ailab-card-title">Live Match Analyst</div>
+          <div class="ailab-card-desc">Paste padel match scores → get AI tactical breakdown</div>
+        </div>
+      </div>
+      <div class="ailab-body">
+        <div class="ailab-chips">
+          <button class="ailab-chip" onclick="fillDemo('match', this.textContent)">Pair A 6-3 6-4 vs Pair B</button>
+          <button class="ailab-chip" onclick="fillDemo('match', this.textContent)">Player 1: 18W 4L. Player 2: 9W 12L</button>
+          <button class="ailab-chip" onclick="fillDemo('match', this.textContent)">Set 1: 7-5, Set 2: 3-6, Set 3: 6-4. Winners mostly from right side</button>
+        </div>
+        <textarea id="match-input" class="ailab-textarea" placeholder="Paste match scores, stats, or notes here. E.g: Pair A won 6-3, 6-4. Most points won at net. Player 1 had 14 winners, 8 errors..."></textarea>
+        <button class="ailab-run" onclick="runDemo('match')" id="match-btn">Analyse Match ➤</button>
+        <div class="ailab-output" id="match-output"></div>
+      </div>
+    </div>
+
+        <!-- DEMO 3: Stack Recommender -->
+    <div class="ailab-card">
+      <div class="ailab-card-header">
+        <div class="ailab-icon">🏗️</div>
+        <div>
+          <div class="ailab-card-title">AI Stack Recommender</div>
+          <div class="ailab-card-desc">Describe a tech problem → Martin's AI proposes an approach</div>
+        </div>
+      </div>
+      <div class="ailab-body">
+        <div class="ailab-chips">
+          <button class="ailab-chip" onclick="fillDemo('stack', this.textContent)">Migrate Vue 2 to React 19, 3 devs, 6 weeks</button>
+          <button class="ailab-chip" onclick="fillDemo('stack', this.textContent)">Add Garmin + Strava API to a Laravel backend</button>
+          <button class="ailab-chip" onclick="fillDemo('stack', this.textContent)">Replace Google Sheets DB with SQL, keep API layer</button>
+        </div>
+        <textarea id="stack-input" class="ailab-textarea" placeholder="Describe a technical challenge. E.g: We need to migrate our legacy Vue 2 frontend to React 19 with a team of 3 devs in 6 weeks without breaking production..."></textarea>
+        <button class="ailab-run" onclick="runDemo('stack')" id="stack-btn">Get Recommendation ➤</button>
+        <div class="ailab-output" id="stack-output"></div>
+      </div>
+    </div>
+
+    </div>
 </section>
 
 <!-- CV INLINE -->
