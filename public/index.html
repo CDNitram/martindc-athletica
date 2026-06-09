@@ -2208,7 +2208,7 @@ ${MARTIN_BIO}`
       });
 
       const data = await res.json();
-      const reply = data.content?.[0]?.text || 'No response received. Please try again.';
+      const reply = data.content?.[0]?.text || data.error?.message || JSON.stringify(data) || 'No response received.';
 
       output.className = 'ailab-output visible';
       output.innerHTML = '<span class="out-label">' + labels[type] + '</span>' + reply.replace(/\n/g, '<br>');
@@ -2266,7 +2266,7 @@ ${MARTIN_BIO}`
       });
 
       const data = await res.json();
-      const reply = data.content?.[0]?.text || 'Sorry, I could not get a response. Please try again.';
+      const reply = data.content?.[0]?.text || data.error?.message || JSON.stringify(data) || 'Sorry, could not get a response.';
 
       typing.remove();
       appendMsg(reply, 'assistant');
